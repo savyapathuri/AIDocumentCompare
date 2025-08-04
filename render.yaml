@@ -3,8 +3,11 @@ services:
     name: ai-document-compare
     env: python
     plan: free
+    # Tell Render to run commands from this directory
+    rootDir: ./AIDocumentCompare
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn app:app"
+    # Use the correct start command with the right port
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT app:app"
     envVars:
       - key: AZURE_OPENAI_KEY
         sync: false
@@ -13,4 +16,4 @@ services:
       - key: AZURE_OPENAI_DEPLOYMENT_NAME
         sync: false
       - key: PYTHON_VERSION
-        value: 3.11.0 
+        value: 3.11.0
